@@ -18,21 +18,22 @@ def load_expense(filename="expense.json") :
 def add_expense(description, amount) :
     expenses = load_expense()
     expense = {
-        "id" : datetime.now().timestamp(),
-        "date" : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        "id" : len(expenses) + 1,
+        "date" : datetime.now().strftime("%Y-%m-%d"),
         "description" : description,
         "amount" : amount
     }
 
     expenses.append(expense)
     save_expense(expenses)
-    print(f"Expense added successfully (ID: {expense.id})")
+    print(f"Expense added successfully (ID: {expense["id"]})")
 
 # List all expenses
 def list_expenses() :
     expenses = load_expense()
+    print("ID\tDATE\t\tDescription\tAmount")
     for li in expenses :
-        print("%d\t%s\t%s\t$%d".format(li.id, li.date, li.description, li.amount))
+        print(f"{li['id']}\t{li['date']}\t{li['description']}\t\t${li['amount']}")
 
 
 def main() :
@@ -57,4 +58,4 @@ def main() :
         list_expenses()
 
 if __name__ == "__main__" :
-    main()
+    main() 
